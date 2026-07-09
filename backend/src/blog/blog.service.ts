@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { BlogEntity } from "./entities/blog.entity"
-import {Blog, Blog as BlogDto} from "../blog/dto/create-blog.dto"
+import {Blog as BlogDto} from "../blog/dto/create-blog.dto"
 
 
 @Injectable()
@@ -56,7 +56,7 @@ export class BlogService{
             throw new NotFoundException(`Blog with ID ${id} not found`);
         }
 
-        await this.blogRepository.delete(id);
+        await this.blogRepository.remove(blog);
         return 'Blog Deleted Successfully';
     }
 
