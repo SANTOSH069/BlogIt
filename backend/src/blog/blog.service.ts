@@ -22,7 +22,7 @@ export class BlogService{
         return await this.blogRepository.save(newBlog);
     }
 
-    async getAllBlogs(dto: BlogDto): Promise<BlogEntity[]> {
+    async getAllBlogs(): Promise<BlogEntity[]> {
         return await this.blogRepository.find();
     }
 
