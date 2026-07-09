@@ -112,7 +112,7 @@ const Page = () => {
 
   return (
     <div className='min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8 font-sans'>
-      <div className='mx-auto max-w-6xl rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8'>
+      <div className='mx-auto max-w-6xl mt-24 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8'>
         <div className='flex flex-col gap-3 md:flex-row md:items-end md:justify-between'>
           <div>
             <h1 className='text-3xl font-extrabold tracking-tight text-black'>Manage Blogs</h1>

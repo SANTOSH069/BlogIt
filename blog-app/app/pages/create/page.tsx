@@ -57,8 +57,8 @@ const Page = () => {
   }
 
   return (
-    <div className='min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8 font-sans'>
-      <div className='mx-auto max-w-4xl rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8'>
+    <div className='min-h-screen bg-slate-50  px-4 py-10 sm:px-6 lg:px-8 font-sans'>
+      <div className='mx-auto max-w-4xl rounded-3xl mt-24 bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8'>
         <h1 className='text-3xl font-extrabold tracking-tight text-black'>Create Blog</h1>
         <p className='mt-2 text-sm text-slate-600'>Write your story and share it with your audience.</p>
 

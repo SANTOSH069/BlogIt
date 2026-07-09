@@ -1,67 +1,85 @@
 "use client";
+
 import { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Create", href: "/create" },
-    { name: "Manage", href: "/manage" },
+  const links = [
+    {
+      name: "Home",
+      href: "/",
+    },
+    {
+      name: "About",
+      href: "/about",
+    },
+    {
+      name: "Create",
+      href: "/create",
+    },
+    {
+      name: "Manage",
+      href: "/manage",
+    },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-blue-900/95 backdrop-blur-md shadow-md font-sans">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href={`/`}>
-        <h1 className="text-3xl font-extrabold tracking-wide text-white">
-          BlogIt
-        </h1>
-        </Link>
-        <ul className="hidden items-center gap-10 text-lg font-medium text-white lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a
-                href={link.href}
-                className="relative transition duration-300 hover:text-yellow-300 after:absolute after:bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-yellow-300 after:transition-all after:duration-300 hover:after:w-full"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <header className="fixed top-2 left-0 right-0 z-50 flex justify-center px-4 ">
+      <nav className="w-full max-w-5xl rounded-full border border-neutral-700  bg-black/90 backdrop-blur-xl shadow-md">
+        <div className="flex items-center justify-between px-7 py-4">
+          <Link href="/">
+            <h1 className="text-xl font-bold tracking-wide text-white">
+              BlogIt
+            </h1>
+          </Link>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-white lg:hidden"
-        >
-          {isOpen ? <X size={32} /> : <Menu size={32} />}
-        </button>
-      </div>
+          <ul className="hidden items-center gap-8 text-sm text-gray-300 lg:flex">
+            {links.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  className="transition hover:text-white"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-      <div
-        className={`overflow-hidden bg-blue-950 transition-all duration-300 lg:hidden ${
-          isOpen ? "max-h-64" : "max-h-0"
-        }`}
-      >
-        <ul className="flex flex-col px-6 py-4 text-lg text-white">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a
-                href={link.href}
-                className="block rounded-md py-3 transition hover:bg-blue-800 hover:pl-3"
-                onClick={() => setIsOpen(false)}
+          <Link
+            href="/create"
+            className="hidden rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:scale-105 lg:block"
+          >
+            Start Writing
+          </Link>
+
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-white lg:hidden"
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {open && (
+          <div className="border-t border-neutral-800 lg:hidden">
+            {links.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block px-7 py-4 text-gray-300 hover:bg-neutral-900 hover:text-white"
               >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        )}
+      </nav>
+    </header>
   );
 };
 
