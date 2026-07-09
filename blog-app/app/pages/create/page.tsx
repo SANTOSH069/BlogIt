@@ -1,15 +1,10 @@
 'use client'
 
 import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { api } from '../../lib/api'
+import type { Blog } from '../../types/blog'
 
-interface BlogProps {
-  Title: string
-  Author: string
-  Category: 'Tech' | 'LifeStyle' | 'Food' | 'Fashion' | 'Science' | 'Finance' | 'Culture'
-  Content: string
-}
-
-const initialForm: BlogProps = {
+const initialForm: Blog = {
   Title: '',
   Author: '',
   Category: 'Tech',
@@ -17,8 +12,9 @@ const initialForm: BlogProps = {
 }
 
 const Page = () => {
-  const [formData, setFormData] = useState<BlogProps>(initialForm)
-  const [blogs, setBlogs] = useState<BlogProps[]>([])
+  const [formData, setFormData] = useState<Blog>(initialForm)
+  const [blogs, setBlogs] = useState<Blog[]>([])
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -31,39 +27,33 @@ const Page = () => {
     e.preventDefault()
 
     if (!formData.Title.trim() || !formData.Author.trim() || !formData.Content.trim()) {
-      return alert("Please enter the required fields")
+      alert('Please fill in the title, author, and content fields.')
+      return
     }
+
+    setLoading(true)
 
     try {
-        const resp = await fetch('http://localhost:3000/blogs',
-            {
-                
-                method: "POST",
-                headers: {
-                    "content-Type" : "application/json"
-                },
-                body:  JSON.stringify(formData),
-            });
-        if(!resp.ok){
-            alert("Failed to create a blog!!!");
-        }
-        alert("Blog Created Successfully!!!")
-    }
+      const response = await fetch(api.blog, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
 
-    catch(error) {
-        console.log("There was an error in Uploading the blog");
-    }
+      if (!response.ok) {
+        throw new Error('Failed to create blog')
+      }
 
-    setBlogs((prev) => [
-      {
-        ...formData,
-        Title: formData.Title.trim(),
-        Author: formData.Author.trim(),
-        Content: formData.Content.trim(),
-      },
-      ...prev,
-    ])
-    setFormData(initialForm)
+      const createdBlog = await response.json()
+      setBlogs((prev) => [createdBlog, ...prev])
+      setFormData(initialForm)
+      alert('Blog created successfully!')
+    } catch (error) {
+      console.error(error)
+      alert('There was an error while creating the blog.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -126,23 +116,24 @@ const Page = () => {
               rows={14}
               minLength={30}
               placeholder='Write your blog here...'
-              className='min-h-[260px] w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-black outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+              className='min-h-65 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-black outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
             />
           </label>
 
           <button
             type='submit'
-            className='rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700'
+            disabled={loading}
+            className='rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300'
           >
-            Publish Blog
+            {loading ? 'Publishing...' : 'Publish Blog'}
           </button>
         </form>
 
         {blogs.length > 0 && (
           <div className='mt-10 space-y-4'>
             <h2 className='text-xl font-semibold text-slate-800'>Recently Added</h2>
-            {blogs.map((blog, index) => (
-              <div key={index} className='rounded-2xl border border-slate-200 bg-slate-50 p-4'>
+            {blogs.map((blog) => (
+              <div key={blog.id ?? `${blog.Title}-${blog.Author}`} className='rounded-2xl border border-slate-200 bg-slate-50 p-4'>
                 <div className='flex flex-wrap items-center justify-between gap-2'>
                   <h3 className='text-lg font-semibold text-slate-900'>{blog.Title}</h3>
                   <span className='rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700'>

@@ -1,24 +1,26 @@
 "use client";
 import { useState } from "react";
+import Link from 'next/link';
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home",     href: "/" },
-    { name: "About",    href: "/pages/about" },
-    { name:  "Create",  href: "/pages/create"},
-    { name:  "Manage",  href: "/pages/manage"},
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Create", href: "/create" },
+    { name: "Manage", href: "/manage" },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-blue-900/95 backdrop-blur-md shadow-md font-sans">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* Logo */}
+        <Link href={`/`}>
         <h1 className="text-3xl font-extrabold tracking-wide text-white">
           BlogIt
         </h1>
+        </Link>
         <ul className="hidden items-center gap-10 text-lg font-medium text-white lg:flex">
           {navLinks.map((link) => (
             <li key={link.name}>

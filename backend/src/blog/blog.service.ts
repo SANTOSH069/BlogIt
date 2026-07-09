@@ -50,12 +50,14 @@ export class BlogService{
     }
 
     async deleteBlogbyId(id: number): Promise<string> {
-        const Blog = await this.blogRepository.findOneBy({id});
+        const blog = await this.blogRepository.findOneBy({ id });
 
-        if(Blog != undefined){
-           await this.blogRepository.delete(Blog);
+        if (!blog) {
+            throw new NotFoundException(`Blog with ID ${id} not found`);
         }
-        return "Blog Deleted Successfully";
+
+        await this.blogRepository.delete(id);
+        return 'Blog Deleted Successfully';
     }
 
     async deelteAll(dto: BlogDto): Promise<string> {

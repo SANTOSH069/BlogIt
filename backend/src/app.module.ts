@@ -1,19 +1,20 @@
-// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432, 
+      port: 5432,
       username: 'postgres',
       password: 'KillerQueen_05',
       database: 'blog_db',
-      autoLoadEntities: true, 
-      synchronize: true, 
+      autoLoadEntities: true,
+      synchronize: true,
     }),
+    BlogModule,
   ],
 })
 export class AppModule {}

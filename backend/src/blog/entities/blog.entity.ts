@@ -4,7 +4,6 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 export class BlogEntity {
 
     @PrimaryGeneratedColumn()
-    @Column()
     id !: number;
 
     @Column({nullable:false})
