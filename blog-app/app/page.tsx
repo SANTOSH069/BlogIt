@@ -1,23 +1,19 @@
 import Link from "next/link";
-
+import Image from "next/image";
+import BlogImg from '@/public/BlogImage.jpg'
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAFAFA] pt-28">
       <section className="mx-auto max-w-6xl px-6">
 
-        {/* Hero Image */}
-
         <div className="overflow-hidden rounded-2xl border border-neutral-200 shadow-lg">
-          <img
-            src="/hero.jpg"
+          <Image
+            src={BlogImg}
             alt="Hero"
             className="h-[500px] w-full object-cover"
           />
         </div>
-
-        {/* Hero Text */}
-
-        <div className="mt-16 flex flex-col items-center text-center">
+        <div className="mt-12 flex flex-col items-center text-center">
 
           <h1 className="max-w-4xl text-5xl font-bold leading-tight tracking-tight text-neutral-900 md:text-7xl">
             Share your ideas,
@@ -34,10 +30,7 @@ export default function Home() {
             and create content that lasts. A modern blogging platform built
             for creators who love writing.
           </p>
-
-          {/* Buttons */}
-
-          <div className="mt-12 flex flex-wrap justify-center gap-5">
+          <div className="mt-8 flex flex-wrap justify-center gap-4 pb-4">
 
             <Link
               href="/create"

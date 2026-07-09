@@ -180,7 +180,7 @@ const Page = () => {
           <button
             type='submit'
             disabled={loading}
-            className='rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300'
+            className='rounded-xl bg-black px-5 py-3 text-sm font-semibold border-black border-1 text-white transition hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:bg-blue-300'
           >
             {loading ? 'Saving...' : editingId ? 'Update Blog' : 'Create Blog'}
           </button>
