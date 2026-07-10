@@ -130,7 +130,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - **Frontend:** Deploy easily on [Vercel](https://vercel.com/new).
 - **Backend:** Deploy on platforms like [Railway](https://railway.app), [Render](https://render.com), or a VPS with Docker.
-
-## License
-
-This project is licensed under the MIT License.
